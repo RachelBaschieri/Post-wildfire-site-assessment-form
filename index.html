@@ -1199,41 +1199,35 @@ function csvEscapeField(s){
 
 // ---- Save helpers ----
 function downloadBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
-
   // Detect iOS/Safari
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   if (isIOS && isSafari) {
-    // On iOS Safari: open in new tab so user can Share > Save to Files
-    const newWindow = window.open(url, '_blank');
-    if (newWindow) {
-      // Optional: Add a message in the new tab to guide the user
-      newWindow.document.write(`
-        <html><body style="font-family:system-ui;padding:20px;text-align:center;">
-          <h2>Your assessment is ready!</h2>
-          <p>Tap the Share button (□↑) below and choose "Save to Files" to download it.</p>
-          <p>File: ${filename}</p>
-        </body></html>
-      `);
-      newWindow.document.close();
-    } else {
-      alert('Please allow pop-ups for this site, then try again.');
-    }
+    // On iOS Safari: read blob as text and open as data URI
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const content = e.target.result;
+      const mimeType = blob.type || 'application/octet-stream';
+      const dataURI = `data:${mimeType};charset=utf-8,${encodeURIComponent(content)}`;
+      const newWindow = window.open(dataURI, '_blank');
+      if (!newWindow) {
+        alert('Please allow pop-ups for this site, then try again.');
+      }
+    };
+    reader.readAsText(blob);
   } else {
     // Normal browsers: auto-download
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
   }
-
-  // Clean up the object URL after a delay
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
 window.addEventListener("DOMContentLoaded", ()=> {
