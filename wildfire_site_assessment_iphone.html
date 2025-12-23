@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Landowner Experience After Fire Site Assessment</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:14px;background:#f7f9fb;color:#111}
+    h1{font-size:20px;margin-top:6px}
+    h2{font-size:16px;margin:10px 0}
+    .card{background:white;border-radius:8px;padding:12px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+    label{display:block;margin:6px 0;font-weight:600}
+    input[type=text], input[type=date], input[type=number], textarea, select{width:100%;box-sizing:border-box;padding:8px;border:1px solid #d4d7dd;border-radius:6px}
+    textarea{min-height:70px;resize:vertical}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    button{padding:8px 12px;border-radius:8px;border:none;background:#0b78e3;color:white;cursor:pointer; touch-action: manipulation;}
+    .muted{color:#666;font-size:13px}
+    .small{font-size:13px}
+    .inline{display:inline-block;margin-right:8px}
+    .controls{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+    .mini{padding:6px 8px;font-size:13px}
+    .danger{background:#d9534f}
+    .success{background:#5cb85c}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .imagelist img{max-width:120px;max-height:90px;margin:6px;border-radius:6px;border:1px solid #ddd}
+    .section-header{display:flex;justify-content:space-between;align-items:center}
+    .subtle{color:#555;font-size:13px}
+    .badge{background:#eef5ff;color:#0456a9;padding:4px 8px;border-radius:999px;font-weight:700}
+    .actions-row{display:flex;gap:8px;align-items:center}
+    .remove-btn{background:#ff6b6b;color:white;border:none;padding:6px 8px;border-radius:6px;cursor:pointer; touch-action: manipulation;}
+    footer{margin-top:18px;font-size:13px;color:#444}
+    .template{display:none}
+  </style>
+</head>
+<body>
+  <h1>Landowner Experience After Fire Site Assessment</h1>
+
+  <div class="card" id="mainForm">
+    <h2>Basic Info</h2>
+    <div class="grid">
+      <div>
+        <label>Landowner(s)</label>
+        <input id="landowner" type="text" placeholder="Name(s)"/>
+      </div>
+      <div>
+        <label>Date of Assessment</label>
+        <input id="dateAssessment" type="date" />
+      </div>
+      <div>
+        <label>Site Assessor and Organization</label>
+        <input id="assessorOrg" type="text" />
+      </div>
+      <div>
+        <label>Assessor Contact</label>
+        <input id="assessorContact" type="text" />
+      </div>
+      <div>
+        <label>Site Address</label>
+        <textarea id="siteAddress"></textarea>
+      </div>
+      <div>
+        <label>Property acreage</label>
+        <input id="propertyAcreage" type="text" />
+      </div>
+      <div>
+        <label>Years owned</label>
+        <input id="yearsOwned" type="text" />
+      </div>
+      <div>
+        <label>Planning to sell?</label>
+        <div class="inline"><input id="planningToSell" type="checkbox"/> <span class="small">Planning to Sell</span></div>
+      </div>
+    </div>
+
+    <h2>Landowner Residence</h2>
+    <div>
+      <label class="small"><input type="radio" name="residence" value="On Property Full Time" checked/> On Property Full Time</label>
+      <label class="small"><input type="radio" name="residence" value="On Property Part Time"/> On Property Part Time</label>
+      <label class="small"><input type="radio" name="residence" value="Does not reside on property"/> Does not reside on property</label>
+    </div>
+
+    <h2>History of Wildfire on Property</h2>
+    <div>
+        <label>Property was purchased Post-wildfire</label>
+        <div class="inline"><input id="prop_purchased_post_fire" type="checkbox"/> <span class="small"></span></div>
+    </div>
+    <div id="wildfireHistoryContainer"></div>
+    <div class="controls">
+      <button type="button" id="addWildfireBtn" class="mini">+ Add Wildfire History Entry</button>
+    </div>
+
+    <h2>Immediate Concerns</h2>
+    <div id="immediateConcerns" class="card">
+      <!-- preset list of common concerns -->
+    </div>
+
+    <h2>Landowner Objectives</h2>
+    <div id="objectives" class="card">
+        <h3>What primary values does the landowner hold for their forest?</h3>
+        <textarea id="primaryValues"></textarea>
+
+        <!-- Forest Management Plan -->
+        <h3>Forest Management Plan</h3>
+        <div class="inline">
+          <input id="objForestMgmtYes" type="checkbox" />
+          <span class="small">Yes</span>
+        </div>
+        <div class="inline">
+          <input id="objForestMgmtInterested" type="checkbox" />
+          <span class="small">Interested</span>
+    </div>
+    <label>Contact for Forest Management Plan</label>
+    <textarea id="forestMgmtPlancontact"></textarea>
+    
+    <!--Upload area (initially hidden)-->
+    <div id="forestMgmtUploadContainer" style="display:none; margin-top:8px;">
+    <label>Upload Forest Management Plan (PDF or Image)</label>
+    <input id="forestMgmtPlanFile" type="file" accept="image/*,.pdf" multiple />
+    <div class="imagelist" id="forestMgmtPlanPreview"></div>
+    </div>
+
+        <!-- Defensible Space -->
+        <h3>Defensible Space / Home Ignition Zone Assessment</h3>
+        <div class="inline">
+          <input id="objDefensibleYes" type="checkbox" />
+          <span class="small">Yes</span>
+        </div>
+        <div class="inline">
+          <input id="objDefensibleInterested" type="checkbox" />
+          <span class="small">Interested</span>
+        </div>
+
+        <label>Contact for Defensible Space Assessment</label>
+        <textarea id="defensibleContact"></textarea>
+
+        <!--Upload area (initially hidden)-->
+        <div id="defensibleUploadContainer" style="display:none; margin-top:8px;">
+        <label>Upload Defensible Space Assessment (PDF or Image)</label>
+        <input id="defensiblePlanFile" type="file" accept="image/*,.pdf" multiple />
+        <div class="imagelist" id="defensiblePlanPreview"></div>
+      </div>
+    </div>
+
+    <h2>Forest Property Characteristics</h2>
+    <div style="display: flex; gap: 20px; margin-bottom: 16px;">
+    <div style="flex: 1;">
+        <label>Adjacent Property Ownerships (description)</label><br/>
+        <textarea id="adjacentOwnerships" style="width:100%; min-height:60px;"></textarea>
+    </div>
+    <div style="flex: 1;">
+        <label>Contact Information</label><br/>
+        <textarea id="adjacentownerscontact" style="width:100%; min-height:60px;"></textarea>
+    </div>
+    </div>
+
+       <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+         <div style="flex:1;">
+              <label>Watershed HUC (description)</label>
+              <input id="watershedHUC" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="watershedHUCMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="watershedHUCMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="watershedHUCMapPreview" class="imagelist map-preview"></div>
+            </div>
+         </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Watercourses and waterbodies on the property (description)</label>
+                <input id="watercourses" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="watercoursesMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="watercoursesMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="watercoursesMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Non-woodland land uses (description)</label>
+                <input id="nonWoodland" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="nonWoodlandMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="nonWoodlandMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="nonWoodlandMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Extent of Road Systems on property (description)</label>
+                <input id="roadExtent" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="roadExtentMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="roadExtentMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="roadExtentMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Right of Ways on Property (description)</label>
+                <input id="rightOfWays" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="rightOfWaysMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="rightOfWaysMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="rightOfWaysMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Treatments or Timber Harvests Prior to Wildfire (description)</label>
+                <input id="treatmentsPrior" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="treatmentsPriorMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="treatmentsPriorMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="treatmentsPriorMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>Treatments or Timber Harvests Since Wildfire (description)</label>
+                <input id="treatmentsSince" type="text" style="width:100%;" />
+            </div>
+            <div>
+                <label style="font-size:14px;">
+                  <input id="treatmentsSinceMapcheckbox" type="checkbox" />
+                  Features Mapped?
+                </label>
+                <input id="treatmentsSinceMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+                <div id="treatmentsSinceMapPreview" class="imagelist map-preview"></div>
+            </div>
+        </div>
+
+
+    <h2>Property Characteristics by Forest Stand</h2>
+    <div id="standsContainer"></div>
+    <div class="controls">
+      <button type="button" id="addStandBtn" class="mini">+ Add Forest Stand</button>
+    </div>
+
+    <h2>Action Plans</h2>
+    <div id="actionPlanGroups"></div>
+    <div class="controls">
+      <button type="button" id="addActionGroupBtn" class="mini">+ Add Action Plan Group</button>
+    </div>
+
+    <h2>Resources</h2>
+    <div id="resourcesContainer"></div>
+    <div class="controls">
+      <button type="button" id="addResourceBtn" class="mini">+ Add Funding Resource</button>
+    </div>
+
+    <h2>Helpful Organizations and Information</h2>
+    <div id="helpfulOrgsContainer"></div>
+    <div class="controls">
+      <button type="button" id="addHelpfulOrgsBtn" class="mini">+ Add Organization</button>
+    </div>
+
+    <h2>Notes</h2>
+    <textarea id="notes"></textarea>
+
+    <div class="controls" style="margin-top:12px">
+      <button type="button" id="exportHtmlBtn" class="mini success">Save as HTML</button>
+      <button type="button" id="exportCsvBtn" class="mini">Save as CSV (key,value)</button>
+      <label style="margin-left:6px" class="small"><input id="csvIncludeImages" type="checkbox" /> Include images (base64) in CSV (may be large)</label>
+      <button type="button" id="resetBtn" class="mini danger">Reset Form</button>
+    </div>
+
+    <p class="muted small">All data is processed locally in your browser. No data leaves your computer.</p>
+  </div>
+
+  <footer class="muted small">
+    Tip: Save the file you create to your device. The HTML export embeds images and only includes fields you filled.
+  </footer>
+
+  <!-- TEMPLATES -->
+  <template id="wildfireTemplate">
+    <div class="card wf-entry" style="margin-bottom:12px; padding:12px; border:1px solid #ccc; border-radius:8px;">
+      <div class="section-header" style="margin-bottom:8px;">
+        <strong>Wildfire Entry</strong>
+        </div>
+
+      <div class="grid" style="display:flex; flex-wrap:wrap; gap:12px;">
+        <div style="flex:1; min-width:150px;">
+          <label>Year</label>
+          <input name="wfYear" type="text" style="width:100%;" />
+        </div>
+        <div style="flex:1; min-width:150px;">
+          <label>Fire name</label>
+          <input name="wfName" type="text" style="width:100%;"/>
+        </div>
+      </div>
+
+        <div style="margin-top:8px;">
+          <label style="display:flex; align-items:center; gap:6px;"></label>
+          <label><input name="wfMapIncluded" type="checkbox" /> 
+            Burn Severity Map Included in Report
+          </label>
+          <input name="wfMapFile" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
+          <div class="imagelist map-preview"></div>
+        </div>
+
+        <div style="margin-top:12px; text-align:right;">
+          <button type="button" class="remove-wf remove-btn" style="background:#c00; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">
+            Remove
+          </button>
+      </div>
+    </div>
+  </template>
+
+  <template id="concernTemplate">
+    <div class="card concern">
+      <div class="section-header"><strong class="concern-name"></strong><button type="button" class="remove-concern remove-btn" style="display:none">Remove</button></div>
+      <label>Description</label>
+      <textarea name="concernDesc"></textarea>
+      <label>Recommendations</label>
+      <textarea name="concernRec"></textarea>
+      <label> Upload Photo(s)</label>
+      <input type="file" name="concernImages" accept="image/*" multiple />
+      <div class="imagelist"></div>
+    </div>
+  </template>
+
+  <template id="standTemplate">
+    <div class="card stand-entry">
+      <div class="section-header">
+        <div>
+          <strong>Forest Stand</strong>
+          <div class="subtle">Stand name: <input name="standName" type="text" placeholder="Stand name" style="display:inline-block;width:200px"/></div>
+          <div class="subtle">Stand acres: <input name="standAcres" type="text" style="display:inline-block;width:100px"/></div>
+        </div>
+        <div>
+          <button type="button" class="remove-stand remove-btn">Remove Stand</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Elevation range</label><input name="elevation" type="text"/>
+          <label>Erosion potential</label><input name="erosion" type="text"/>
+          <label>Site Index</label><input name="siteIndex" type="text"/>
+          <label>Presence of riparian zones</label><input name="riparian" type="text"/>
+        </div>
+        <div>
+          <label>Fuel loading</label><input name="fuelLoading" type="text"/>
+          <label>Brush potential</label><input name="brushPotential" type="text"/>
+          <label>Aspect</label><input name="aspect" type="text"/>
+          <label>Soil types</label><input name="soilTypes" type="text"/>
+        </div>
+        <div>
+          <label>Species composition prior to wildfire</label><input name="speciesPrior" type="text"/>
+          <label>Average mortality</label><input name="avgMortality" type="text"/>
+          <label>Average flame length</label><input name="avgFlame" type="text"/>
+          <label>Burn severity</label><input name="burnSeverity" type="text"/>
+        </div>
+        <div>
+          <label>Reforestation potential</label><input name="reforestPotential" type="text"/>
+          <label>Salvage potential</label><input name="salvagePotential" type="text"/>
+          <label>Sensitive species</label><input name="sensitiveSpecies" type="text"/>
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label><input name="photoTaken" type="checkbox"/> Photo Taken</label>
+        <label>Upload Photos</label>
+        <input name="standImages" type="file" accept="image/*" multiple />
+        <div class="imagelist"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="actionGroupTemplate">
+    <div class="card action-group" style="margin-bottom:12px">
+      <div class="section-header">
+        <strong class="groupTitle"></strong>
+        <button type="button" class="removeGroup remove-btn">Remove Group</button>
+      </div>
+      <h3>Short Term (Before next fire season)</h3>
+      <div class="shortActions"></div>
+      <button type="button" class="mini addActionRow" data-when="short">+ Add Short Term Action</button>
+
+      <h3>Near Term (Next 3-5 years)</h3>
+      <div class="nearActions"></div>
+      <button type="button" class="mini addActionRow" data-when="near">+ Add Near Term Action</button>
+
+      <h3>Long Term (Next 10 years)</h3>
+      <div class="longActions"></div>
+      <button type="button" class="mini addActionRow" data-when="long">+ Add Long Term Action</button>
+    </div>
+  </template>
+
+  <template id="actionRowTemplate">
+    <div class="action-row" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
+      <label>Required steps</label>
+      <textarea name="requiredSteps"></textarea>
+      <label>Who can do the work</label>
+      <textarea name="whoDo"></textarea>
+      <label>Possible with existing resources</label>
+      <input name="possibleExisting" type="checkbox"/>
+      <label>People/Orgs/Funding sources to contact</label>
+      <textarea name="fundingSources"></textarea>
+      <label>Upload Photo(s)</label>
+      <input name="actionImages" type="file" accept="image/*" multiple />
+      <div class="imagelist"></div>
+      <div style="text-align:right;margin-top:6px">
+        <button type="button" class="removeAction remove-btn mini">Remove Action</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="resourceTemplate">
+    <div class="resource-entry" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
+      <label>Funding Source Name</label>
+      <input name="fundName" type="text"/>
+      <label>Activities Covered</label>
+      <textarea name="fundActivities"></textarea>
+      <label>Application Requirements</label>
+      <textarea name="fundReqs"></textarea>
+      <label>When to Apply</label>
+      <input name="whenApply" type="text"/>
+      <label>Contact</label>
+      <textarea name="fundContact"></textarea>
+      <div style="text-align:right;margin-top:6px">
+        <button type="button" class="removeResource remove-btn mini">Remove</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="HelpfulOrgsTemplate">
+    <div class="helporgs-entry" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
+      <label>Organization Name</label>
+      <input name="OrgName" type="text"/>
+      <label>Description</label>
+      <textarea name="Orgdescript"></textarea>
+      <label>Contact Info</label>
+      <textarea name="Info"></textarea>
+      <div style="text-align:right;margin-top:6px">
+        <button type="button" class="removeOrgs remove-btn mini">Remove</button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ---- Helpers ----
+function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
+function mk(tag, props){ const e=document.createElement(tag); if(props) Object.assign(e,props); return e; }
+function textVal(sel, root=document){ const el=root.querySelector(sel); return el ? el.value.trim() : ''; }
+
+// ---- INITIALIZE dynamic areas ----
+const wildfireContainer = document.getElementById('wildfireHistoryContainer');
+const wildfireTemplate = document.getElementById('wildfireTemplate');
+
+const concernsContainer = document.getElementById('immediateConcerns');
+const concernTemplate = document.getElementById('concernTemplate');
+
+const standsContainer = document.getElementById('standsContainer');
+const standTemplate = document.getElementById('standTemplate');
+
+const actionPlanGroups = document.getElementById('actionPlanGroups');
+const actionGroupTemplate = document.getElementById('actionGroupTemplate');
+const actionRowTemplate = document.getElementById('actionRowTemplate');
+
+const resourcesContainer = document.getElementById('resourcesContainer');
+const resourceTemplate = document.getElementById('resourceTemplate');
+
+const helpfulOrgsContainer = document.getElementById('helpfulOrgsContainer');
+const HelpfulOrgsTemplate = document.getElementById('HelpfulOrgsTemplate');
+
+// Add default wildfire entry
+function addWildfireEntry(data){
+  const node = wildfireTemplate.content.cloneNode(true);
+  const entry = node.querySelector('.wf-entry');
+  if(data){
+    entry.querySelector('[name=wfYear]').value = data.year || '';
+    entry.querySelector('[name=wfName]').value = data.name || '';
+    entry.querySelector('[name=wfMapIncluded]').checked = !!data.mapIncluded;
+  }
+  entry.querySelector('.remove-wf').addEventListener('click', ()=> entry.remove());
+  wildfireContainer.appendChild(entry);
+}
+
+// Add prefilled concerns for common items (names from PDF)
+const commonConcerns = [
+  "Home or outbuilding damage",
+  "Hazard Trees Present",
+  "High Erosion or Landslide potential",
+  "Watercourse Debris",
+  "Road Infrastructure Failures",
+  "Downed Powerlines",
+  "Wellhouse or spring damage/drinking water concerns",
+  "Livestock management and/or fencing",
+  "Cross-Boundary Communication",
+  "Unclear property lines"
+];
+function addConcern(name){
+  const node = concernTemplate.content.cloneNode(true);
+  const card = node.querySelector('.concern');
+  card.querySelector('.concern-name').textContent = name;
+  // wire up image input
+  const imgInput = card.querySelector('input[name=concernImages]');
+  const imagelist = card.querySelector('.imagelist');
+  imgInput.addEventListener('change', ev => handleFilesPreview(ev.target.files, imagelist, ev.target));
+  //remove button
+  card.querySelector('.remove-concern').style.display = 'none'; // preset ones not removable
+  concernsContainer.appendChild(card);
+}
+
+// Add Stand
+function addStand(prefill){
+  const node = standTemplate.content.cloneNode(true);
+  const stand = node.querySelector('.stand-entry');
+  // wire up image input
+  const input = stand.querySelector('input[name=standImages]');
+  const imagelist = stand.querySelector('.imagelist');
+  input.addEventListener('change', ev => handleFilesPreview(ev.target.files, imagelist, input));
+  // remove button
+  stand.querySelector('.remove-stand').addEventListener('click', ()=> stand.remove());
+  // prefill
+  if(prefill){
+    stand.querySelector('[name=standName]').value = prefill.standName || '';
+    stand.querySelector('[name=standAcres]').value = prefill.standAcres || '';
+    // copy other fields if present
+    ['elevation','erosion','siteIndex','riparian','fuelLoading','brushPotential','aspect','soilTypes','speciesPrior','avgMortality','avgFlame','burnSeverity','reforestPotential','salvagePotential','sensitiveSpecies']
+      .forEach(k=>{
+        const f = stand.querySelector('[name='+k+']');
+        if(f && prefill[k]) f.value = prefill[k];
+      });
+    // images: if prefill contains dataURLs, add previews (can't re-populate file input due security, but show preview and set hidden data attribute)
+    if(prefill.images && prefill.images.length){
+      prefill.images.forEach(durl => {
+        const img = document.createElement('img'); img.src = durl;
+        imagelist.appendChild(img);
+        imagelist.dataset.hasImages = '1';
+      });
+      stand.querySelector('[name=photoTaken]').checked = true;
+      // store dataURLs on imagelist for export
+      imagelist.dataset.durls = JSON.stringify(prefill.images);
+    }
+  }
+  standsContainer.appendChild(stand);
+  // scroll into view
+  stand.scrollIntoView({behavior:'smooth'});
+}
+
+// Create Action Group
+function addActionGroup(prefill){
+  const node = actionGroupTemplate.content.cloneNode(true);
+  const group = node.querySelector('.action-group');
+  const title = group.querySelector('.groupTitle');
+  const idx = document.querySelectorAll('.action-group').length + 1;
+  title.textContent = 'Action Plan Group ' + idx;
+
+  // add row function
+  function addRowTo(container, data){
+    const rnode = actionRowTemplate.content.cloneNode(true);
+    const row = rnode.querySelector('.action-row');
+    // wire image input
+    const input = row.querySelector('input[name=actionImages]');
+    const imagelist = row.querySelector('.imagelist');
+    input.addEventListener('change', ev => handleFilesPreview(ev.target.files, imagelist, input));
+    // remove action
+    row.querySelector('.removeAction').addEventListener('click', ()=> row.remove());
+    // prefill
+    if(data){
+      row.querySelector('[name=requiredSteps]').value = data.requiredSteps || '';
+      row.querySelector('[name=whoDo]').value = data.whoDo || '';
+      row.querySelector('[name=possibleExisting]').checked = !!data.possibleExisting;
+      row.querySelector('[name=fundingSources]').value = data.fundingSources || '';
+      if(data.images && data.images.length){
+        data.images.forEach(durl=>{
+          const img = document.createElement('img'); img.src = durl;
+          imagelist.appendChild(img);
+        });
+        imagelist.dataset.durls = JSON.stringify(data.images);
+      }
+    }
+    container.appendChild(row);
+    return row;
+  }
+
+  // wire add buttons
+  group.querySelectorAll('.addActionRow').forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      const when = btn.getAttribute('data-when');
+      const target = when === 'short' ? group.querySelector('.shortActions') : when === 'near' ? group.querySelector('.nearActions') : group.querySelector('.longActions');
+      addRowTo(target);
+    });
+  });
+
+  group.querySelector('.removeGroup').addEventListener('click', ()=> group.remove());
+
+  // prefill groups if provided
+  if(prefill){
+    if(prefill.short && prefill.short.length) prefill.short.forEach(a=> addRowTo(group.querySelector('.shortActions'), a));
+    if(prefill.near && prefill.near.length) prefill.near.forEach(a=> addRowTo(group.querySelector('.nearActions'), a));
+    if(prefill.long && prefill.long.length) prefill.long.forEach(a=> addRowTo(group.querySelector('.longActions'), a));
+    } else {
+        // if no prefill, add one empty row to each timeframe
+        addRowTo(group.querySelector('.shortActions'));
+        addRowTo(group.querySelector('.nearActions'));
+        addRowTo(group.querySelector('.longActions'));
+    } 
+  actionPlanGroups.appendChild(group);
+  group.scrollIntoView({behavior:'smooth'});
+  }  
+
+// Add Resource
+function addResource(prefill){
+  const node = resourceTemplate.content.cloneNode(true);
+  const r = node.querySelector('.resource-entry');
+  r.querySelector('.removeResource').addEventListener('click', ()=> r.remove());
+  if(prefill){
+    ['fundName','fundActivities','fundReqs','whenApply','fundContact'].forEach(k=>{
+      const f = r.querySelector('[name='+k+']');
+      if(f && prefill[k]) f.value = prefill[k];
+    });
+  }
+  resourcesContainer.appendChild(r);
+  r.scrollIntoView({behavior:'smooth'});
+}
+
+//Add Helpful Organizations
+function addHelpfulOrgs(prefill){  
+    const node = HelpfulOrgsTemplate.content.cloneNode(true);
+    const entry = node.querySelector('.helporgs-entry');
+
+    //Wire up remove button
+    entry.querySelector('.removeOrgs').addEventListener('click', ()=> entry.remove());
+
+    //Prefill data if provided
+    if(prefill){
+        ['OrgName','Orgdescript','Info'].forEach(k=>{
+            const f = entry.querySelector('[name='+k+']');
+            if(f && prefill[k]) f.value = prefill[k];
+        });
+    }
+
+    //Append to container
+    helpfulOrgsContainer.appendChild(entry);
+    entry.scrollIntoView({behavior:'smooth'});
+}
+
+// image preview & store dataURLs on imagelist.dataset.durls for export
+function handleFilesPreview(files, imagelist, inputEl){
+  try {
+    imagelist.innerHTML = '';
+    const durls = [];
+    if(!files || !files.length) {
+      delete imagelist.dataset.durls;
+      return;
+    }
+    Array.from(files).forEach(file=>{
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const durl = e.target.result;
+        if (file.type === 'application/pdf') {
+          // For PDFs, show a placeholder instead of <img>
+          const placeholder = document.createElement('div');
+          placeholder.textContent = 'PDF: ' + file.name;
+          placeholder.style.padding = '8px';
+          placeholder.style.border = '1px solid #ddd';
+          placeholder.style.borderRadius = '6px';
+          imagelist.appendChild(placeholder);
+        } else {
+          const img = document.createElement('img'); img.src = durl;
+          imagelist.appendChild(img);
+        }
+        durls.push(durl);
+        imagelist.dataset.durls = JSON.stringify(durls);
+      };
+      reader.readAsDataURL(file);
+    });
+    // set photoTaken checkboxes near by (if present)
+    const parent = inputEl.closest('.stand-entry') || inputEl.closest('.action-row');
+    if(parent){
+      const photoChk = parent.querySelector('[name=photoTaken]');
+      if(photoChk) photoChk.checked = true;
+    }
+  } catch (e) {
+    console.error('Error handling files:', e);
+  }
+}
+
+
+//Helpers to get map files dataURLs
+function getMapFiles(selector){
+  const input = document.querySelector(selector);
+  if (!input) return [];
+  const imagelist = input.nextElementSibling;
+  if(imagelist && imagelist.dataset?.durls){
+    try{ return JSON.parse(imagelist.dataset.durls); }catch(e){ return []; }
+  }
+  return [];
+}
+// ---- DATA GATHERING ----
+function gatherFormData(){
+  const data = {};
+  data.landowner = document.getElementById('landowner').value.trim();
+  data.dateAssessment = document.getElementById('dateAssessment').value;
+  data.assessorOrg = document.getElementById('assessorOrg').value.trim();
+  data.assessorContact = document.getElementById('assessorContact').value.trim();
+  data.siteAddress = document.getElementById('siteAddress').value.trim();
+  data.propertyAcreage = document.getElementById('propertyAcreage').value.trim();
+  data.yearsOwned = document.getElementById('yearsOwned').value.trim();
+  data.planningToSell = document.getElementById('planningToSell').checked;
+
+  // residence radio
+  const res = document.querySelector('input[name=residence]:checked');
+  data.residence = res ? res.value : '';
+
+  // Add missing post-fire purchase checkbox
+  data.prop_purchased_post_fire = document.getElementById('prop_purchased_post_fire').checked;
+
+  // wildfire history
+  data.wildfireHistory = [];
+  wildfireContainer.querySelectorAll('.wf-entry').forEach(n=>{
+    const y = n.querySelector('[name=wfYear]')?.value.trim() || '';
+    const nm = n.querySelector('[name=wfName]')?.value.trim() || '';
+    const map = n.querySelector('[name=wfMapIncluded]')?.checked || false;
+    let mapfileData = [];
+    const mapList = n.querySelector('.map-preview');
+    if(mapList && mapList.dataset && mapList.dataset.durls){
+      try{ mapfileData = JSON.parse(mapList.dataset.durls); }catch(e){ mapfileData = []; }
+    }
+    if( y || nm || map) {data.wildfireHistory.push({year:y, name:nm, mapIncluded:map});}
+  });
+
+  // immediate concerns
+  data.immediateConcerns = [];
+  concernsContainer.querySelectorAll('.concern').forEach(n=>{
+    const name = n.querySelector('.concern-name')?.textContent.trim() || '';
+    const desc = n.querySelector('[name=concernDesc]')?.value.trim() || '';
+    const rec = n.querySelector('[name=concernRec]')?.value.trim() || '';
+
+    let images = [];
+    const imgList = n.querySelector('.imagelist');
+    if(imgList && imgList.dataset && imgList.dataset.durls){
+      try{ images = JSON.parse(imgList.dataset.durls); }catch(e){ images = []; }
+    }
+
+    const hasContent = desc || rec || (images.length>0);
+    if(hasContent){
+        data.immediateConcerns.push({
+            name: name,
+            description: desc,
+            recommendations: rec,
+            images: images
+        }); 
+    }
+  });
+
+  // objectives
+  data.objectives = {
+    forestManagementPlanYes: document.getElementById('objForestMgmtYes')?.checked || false,
+    forestManagementPlanInterested: document.getElementById('objForestMgmtInterested')?.checked || false,
+    forestMgmtContact: document.getElementById('forestMgmtPlancontact')?.value.trim() || '',
+    forestMgmtFiles: getMapFiles('#forestMgmtPlanFile'),
+    defensibleSpaceYes: document.getElementById('objDefensibleYes')?.checked || false,
+    defensibleSpaceInterested: document.getElementById('objDefensibleInterested')?.checked || false,
+    defensibleContact: document.getElementById('defensibleContact')?.value.trim() || '',
+    defensiblePlanFiles: getMapFiles('#defensiblePlanFile'),
+    primaryValues: document.getElementById('primaryValues')?.value.trim() || ''
+  };
+
+  // forest property characteristics
+  data.forestProperties = {
+    adjacentOwnerships: document.getElementById('adjacentOwnerships')?.value.trim() || '',
+    adjacentownerscontact: document.getElementById('adjacentownerscontact')?.value.trim() || '',
+    watershedHUC: document.getElementById('watershedHUC')?.value.trim() || '',
+    watershedHUCMap: document.getElementById('watershedHUCMapcheckbox')?.checked || false,
+    watershedHUCMapFiles: getMapFiles('#watershedHUCMapFile'),
+    watercourses: document.getElementById('watercourses')?.value.trim() || '',
+    watercoursesMap: document.getElementById('watercoursesMapcheckbox')?.checked || false,
+    watercoursesMapFiles: getMapFiles('#watercoursesMapFile'),
+    nonWoodland: document.getElementById('nonWoodland')?.value.trim() || '',
+    nonWoodlandMap: document.getElementById('nonWoodlandMapcheckbox')?.checked || false,
+    nonWoodlandMapFiles: getMapFiles('#nonWoodlandMapFile'),
+    roadExtent: document.getElementById('roadExtent')?.value.trim() || '',
+    roadExtentMap: document.getElementById('roadExtentMapcheckbox')?.checked || false,
+    roadExtentMapFiles: getMapFiles('#roadExtentMapFile'),
+    rightOfWays: document.getElementById('rightOfWays')?.value.trim() || '',
+    rightOfWaysMap: document.getElementById('rightOfWaysMapcheckbox')?.checked || false,
+    rightOfWaysMapFiles: getMapFiles('#rightOfWaysMapFile'),
+    treatmentsPrior: document.getElementById('treatmentsPrior')?.value.trim() || '',
+    treatmentsPriorMap: document.getElementById('treatmentsPriorMapcheckbox')?.checked || false,
+    treatmentsPriorMapFiles: getMapFiles('#treatmentsPriorMapFile'),
+    treatmentsSince: document.getElementById('treatmentsSince')?.value.trim() || '',
+    treatmentsSinceMap: document.getElementById('treatmentsSinceMapcheckbox')?.checked || false,
+    treatmentsSinceMapFiles: getMapFiles('#treatmentsSinceMapFile'),
+  };
+
+  // stands
+  data.stands = [];
+  standsContainer.querySelectorAll('.stand-entry').forEach(s=>{
+    const stand = {};
+    ['standName','standAcres','elevation','erosion','siteIndex','riparian','fuelLoading','brushPotential','aspect','soilTypes','speciesPrior','avgMortality','avgFlame','burnSeverity','reforestPotential','salvagePotential','sensitiveSpecies']
+      .forEach(k => {
+        const f = s.querySelector('[name='+k+']');
+        if(f) stand[k] = f.value ? f.value.trim() : '';
+      });
+    // images: from imagelist dataset if available
+    const imagelist = s.querySelector('.imagelist');
+    if(imagelist && imagelist.dataset && imagelist.dataset.durls){
+      try{ stand.images = JSON.parse(imagelist.dataset.durls); }catch(e){ stand.images = []; }
+    } else stand.images = [];
+    const photoTaken = s.querySelector('[name=photoTaken]');
+    stand.photoTaken = photoTaken ? photoTaken.checked : false;
+    // include stand only if any meaningful content
+    const hasContent = Object.keys(stand).some(k => {
+      if(k === 'images') return (stand.images && stand.images.length>0);
+      if(k === 'photoTaken') return stand.photoTaken;
+      return (stand[k] && stand[k].toString().trim().length>0);
+    });
+    if(hasContent) data.stands.push(stand);
+  });
+
+  // action plan groups
+  data.actionPlanGroups = [];
+  actionPlanGroups.querySelectorAll('.action-group').forEach(g=>{
+    const grp = {short:[], near:[], long:[]};
+    g.querySelectorAll('.shortActions .action-row').forEach(r=>{
+      const ar = {
+        requiredSteps: r.querySelector('[name=requiredSteps]').value.trim(),
+        whoDo: r.querySelector('[name=whoDo]').value.trim(),
+        possibleExisting: r.querySelector('[name=possibleExisting]').checked,
+        fundingSources: r.querySelector('[name=fundingSources]').value.trim()
+      };
+      const imagelist = r.querySelector('.imagelist');
+      if(imagelist && imagelist.dataset && imagelist.dataset.durls) {
+        try{ ar.images = JSON.parse(imagelist.dataset.durls);}catch(e){ ar.images=[];}
+      } else ar.images=[];
+      if(ar.requiredSteps || ar.whoDo || ar.possibleExisting || ar.fundingSources || (ar.images && ar.images.length)) grp.short.push(ar);
+    });
+    g.querySelectorAll('.nearActions .action-row').forEach(r=>{
+      const ar = {
+        requiredSteps: r.querySelector('[name=requiredSteps]').value.trim(),
+        whoDo: r.querySelector('[name=whoDo]').value.trim(),
+        possibleExisting: r.querySelector('[name=possibleExisting]').checked,
+        fundingSources: r.querySelector('[name=fundingSources]').value.trim()
+      };
+      const imagelist = r.querySelector('.imagelist');
+      if(imagelist && imagelist.dataset && imagelist.dataset.durls) {
+        try{ ar.images = JSON.parse(imagelist.dataset.durls);}catch(e){ ar.images=[];}
+      } else ar.images=[];
+      if(ar.requiredSteps || ar.whoDo || ar.possibleExisting || ar.fundingSources || (ar.images && ar.images.length)) grp.near.push(ar);
+    });
+    g.querySelectorAll('.longActions .action-row').forEach(r=>{
+      const ar = {
+        requiredSteps: r.querySelector('[name=requiredSteps]').value.trim(),
+        whoDo: r.querySelector('[name=whoDo]').value.trim(),
+        possibleExisting: r.querySelector('[name=possibleExisting]').checked,
+        fundingSources: r.querySelector('[name=fundingSources]').value.trim()
+      };
+      const imagelist = r.querySelector('.imagelist');
+      if(imagelist && imagelist.dataset && imagelist.dataset.durls) {
+        try{ ar.images = JSON.parse(imagelist.dataset.durls);}catch(e){ ar.images=[];}
+      } else ar.images=[];
+      if(ar.requiredSteps || ar.whoDo || ar.possibleExisting || ar.fundingSources || (ar.images && ar.images.length)) grp.long.push(ar);
+    });
+    // include group only if any timeframe has actions
+    if(grp.short.length || grp.near.length || grp.long.length) data.actionPlanGroups.push(grp);
+  });
+
+  // resources
+  data.resources = [];
+  resourcesContainer.querySelectorAll('.resource-entry').forEach(r=>{
+    const res = {
+      fundName: r.querySelector('[name=fundName]').value.trim(),
+      fundActivities: r.querySelector('[name=fundActivities]').value.trim(),
+      fundReqs: r.querySelector('[name=fundReqs]').value.trim(),
+      whenApply: r.querySelector('[name=whenApply]').value.trim(),
+      fundContact: r.querySelector('[name=fundContact]').value.trim(),
+    };
+    if(Object.values(res).some(v=>v && v.length)) data.resources.push(res);
+  });
+
+  // helpful organizations
+  data.helpfulOrgs = [];
+  helpfulOrgsContainer.querySelectorAll('.helporgs-entry').forEach(r=>{
+    const org = {
+      OrgName: r.querySelector('[name=OrgName]').value.trim(),
+      Orgdescript: r.querySelector('[name=Orgdescript]').value.trim(),
+      Info: r.querySelector('[name=Info]').value.trim(),
+    };
+    if(Object.values(org).some(v=>v && v.length)) data.helpfulOrgs.push(org);
+  });
+
+  // notes
+  data.notes = document.getElementById('notes').value.trim();
+
+  // return data object
+  return data;
+}
+
+// ---- EXPORT as HTML ----
+function generateHTMLFromData(data){
+  try {
+    // build small HTML document that only includes sections present in data
+    const esc = s => (s===undefined || s===null) ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/"/g,'&quot;');
+    let html = `<!doctype html><html><head><meta charset="utf-8"><title>Saved Wildfire Site Assessment</title>
+      <style>body{font-family:Arial,Helvetica,sans-serif;padding:18px;background:#fff;color:#111}h1{font-size:20px}h2{font-size:16px;margin-top:14px}label{font-weight:700} .pair{margin:6px 0}</style>
+    </head><body>`;
+    html += `<h1>Landowner Experience After Wildfire — Saved Assessment</h1>`;
+
+    // Basic Info
+    const basicFields = ['landowner','dateAssessment','assessorOrg','assessorContact','siteAddress','propertyAcreage','yearsOwned','planningToSell','residence'];
+    let hasBasic = basicFields.some(k => data[k] && data[k].toString().trim() !== '' );
+    if(hasBasic){
+      html += `<h2>Basic Info</h2><div>`;
+      if(data.landowner) html += `<div class="pair"><label>Landowner(s):</label> ${esc(data.landowner)}</div>`;
+      if(data.dateAssessment) html += `<div class="pair"><label>Date of Assessment:</label> ${esc(data.dateAssessment)}</div>`;
+      if(data.assessorOrg) html += `<div class="pair"><label>Site Assessor / Org:</label> ${esc(data.assessorOrg)}</div>`;
+      if(data.assessorContact) html += `<div class="pair"><label>Assessor Contact:</label> ${esc(data.assessorContact)}</div>`;
+      if(data.siteAddress) html += `<div class="pair"><label>Site Address:</label> ${esc(data.siteAddress)}</div>`;
+      if(data.propertyAcreage) html += `<div class="pair"><label>Property acreage:</label> ${esc(data.propertyAcreage)}</div>`;
+      if(data.yearsOwned) html += `<div class="pair"><label>Years owned:</label> ${esc(data.yearsOwned)}</div>`;
+      if(typeof data.planningToSell !== 'undefined') html += `<div class="pair"><label>Planning to sell:</label> ${data.planningToSell ? 'Yes' : 'No'}</div>`;
+      if(data.residence) html += `<div class="pair"><label>Residence:</label> ${esc(data.residence)}</div>`;
+      html += `</div>`;
+    }
+
+    // Wildfire history
+    if(data.wildfireHistory && data.wildfireHistory.length){
+      html += `<h2>History of Wildfire</h2><div>`;
+      if (data.prop_purchased_post_fire) html += `<div class="pair"><label>Property Purchased Post-Wildfire:</label> Yes</div>`;
+      data.wildfireHistory.forEach((w,i)=>{
+        html += `<div class="pair"><label>Entry ${i+1}:</label> ${esc(w.year || '')} — ${esc(w.name || '')} ${w.mapIncluded ? '(Burn severity map included)' : ''}</div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Immediate concerns
+    if(data.immediateConcerns && data.immediateConcerns.length){
+      html += `<h2>Immediate Concerns</h2><div>`;
+      data.immediateConcerns.forEach((c,i)=>{
+        html += `<div style="margin:8px 0;padding:8px;border:1px solid #ddd;border-radius:6px">`;
+        html += `<div><strong>${esc(c.name)}</strong></div>`;
+        if(c.description) html += `<div><label>Description:</label> ${esc(c.description)}</div>`;
+        if(c.recommendations) html += `<div><label>Recommendations:</label> ${esc(c.recommendations)}</div>`;
+
+        //add images if present
+        if(c.images && c.images.length){
+          html += `<div><label>Photo(s) (jpeg only):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+          c.images.forEach(durl=>{
+                html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
+          });
+          html += `</div></div>`;
+        }
+        html += `</div>`;
+      });
+      html += `</div>`;
+    }
+
+      // Objectives
+      if(data.objectives && (data.objectives.forestManagementPlanYes || data.objectives.forestManagementPlanInterested || data.objectives.defensibleSpaceYes || data.objectives.defensibleSpaceInterested || data.objectives.primaryValues)){
+        html += `<h2>Landowner Objectives</h2><div>`;
+        if(data.objectives.forestManagementPlanYes) html += `<div class="pair"><label>>Forest Management Plan:</label> Yes</div>`;
+        if(data.objectives.forestManagementPlanInterested) html += `<div class="pair"><label>Forest Management Plan:</label> Interested</div>`;
+        if(data.objectives.forestMgmtContact) html += `<div class="pair"><label>Contact for Forest Management Plan:</label> ${esc(data.objectives.forestMgmtContact)}</div>`;
+        if(data.objectives.defensibleSpaceYes) html += `<div class="pair"><label>Defensible Space Assessment:</label> Yes</div>`;
+        if(data.objectives.defensibleSpaceInterested) html += `<div class="pair"><label>Defensible Space Assessment:</label> Interested</div>`;
+        if(data.objectives.defensibleContact) html += `<div class="pair"><label>Contact for Defensible Space:</label> ${esc(data.objectives.defensibleContact)}</div>`;
+        if(data.objectives.primaryValues) html += `<div class="pair"><label>Primary values:</label> ${esc(data.objectives.primaryValues)}</div>`;
+        html += `</div>`;
+      }
+
+      if(data.objectives.forestMgmtFiles && data.objectives.forestMgmtFiles.length){
+        html += `<div><label>Forest Management Plan File(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+        data.objectives.forestMgmtFiles.forEach(f=>{
+          if(f.startsWith('data:application/pdf'))
+              html += `<div><a href="${f}" download="Forest_Management_Plan.pdf"> Download PDF</a></div>`;
+          else {
+              html += `<img src="${f}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
+          }
+        });
+          html += `</div></div>`;
+      }
+  
+      if(data.objectives.defensiblePlanFiles && data.objectives.defensiblePlanFiles.length){
+        html += `<div><label>Defensible Space Assessment File(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+        data.objectives.defensiblePlanFiles.forEach(f=>{
+          if(f.startsWith('data:application/pdf'))
+              html += `<div><a href="${f}" download="Defensible_Space_Assessment.pdf"> Download PDF</a></div>`;
+          else {
+              html += `<img src="${f}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
+          }
+ });
+          html += `</div></div>`;
+      }
+  
+
+    // Forest properties
+    if(data.forestProperties){
+      const fs = data.forestProperties;
+      if(Object.values(fs).some(v=>v && v.toString().trim())){
+        html += `<h2>Forest Property Characteristics</h2><div>`;
+        if(fs.adjacentOwnerships) html += `<div class="pair"><label>Adjacent property ownerships:</label> ${esc(fs.adjacentOwnerships)}</div>`;
+        if(fs.watershedHUC) html += `<div class="pair"><label>Watershed HUC:</label> ${esc(fs.watershedHUC)}</div>`;
+        if(fs.watercourses) html += `<div class="pair"><label>Watercourses / waterbodies:</label> ${esc(fs.watercourses)}</div>`;
+        if(fs.nonWoodland) html += `<div class="pair"><label>Non-woodland land uses:</label> ${esc(fs.nonWoodland)}</div>`;
+        if(fs.roadExtent) html += `<div class="pair"><label>Extent of roads:</label> ${esc(fs.roadExtent)}</div>`;
+        if(fs.rightOfWays) html += `<div class="pair"><label>Right of Ways:</label> ${esc(fs.rightOfWays)}</div>`;
+        if(fs.treatmentsPrior) html += `<div class="pair"><label>Treatments or harvests prior to wildfire:</label> ${esc(fs.treatmentsPrior)}</div>`;
+        if(fs.treatmentsSince) html += `<div class="pair"><label>Treatments or harvests since wildfire:</label> ${esc(fs.treatmentsSince)}</div>`;
+        html += `</div>`;
+      }
+    }
+
+    // Stands
+    if(data.stands && data.stands.length){
+      html += `<h2>Property Characteristics by Forest Stand</h2>`;
+      data.stands.forEach((s,i)=>{
+        html += `<div style="padding:8px;border:1px solid #ddd;border-radius:6px;margin:8px 0">`;
+        if(s.standName) html += `<div><strong>Stand ${i+1}: ${esc(s.standName)}</strong> ${s.standAcres ? ' — ' + esc(s.standAcres) + ' acres' : ''}</div>`;
+        ['elevation','erosion','siteIndex','riparian','fuelLoading','brushPotential','aspect','soilTypes','speciesPrior','avgMortality','avgFlame','burnSeverity','reforestPotential','salvagePotential','sensitiveSpecies']
+          .forEach(k=>{
+            if(s[k]) html += `<div class="pair"><label>${k.replace(/([A-Z])/g,' $1')}:</label> ${esc(s[k])}</div>`;
+          });
+        if(s.images && s.images.length){
+          html += `<div><label>Photos:</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+          s.images.forEach(durl=>{
+            html += `<img src="${durl}" style="max-width:220px;max-height:160px;border:1px solid #ccc;border-radius:6px"/>`;
+          });
+          html += `</div></div>`;
+        }
+        html += `</div>`;
+      });
+    }
+
+    // Action plans
+    if(data.actionPlanGroups && data.actionPlanGroups.length){
+      html += `<h2>Action Plans</h2>`;
+      data.actionPlanGroups.forEach((g,gi)=>{
+        html += `<div style="padding:8px;border:1px solid #ddd;border-radius:6px;margin:8px 0">`;
+        html += `<div><strong>Group ${gi+1}</strong></div>`;
+        if(g.short && g.short.length){
+          html += `<div><h3>Short Term (Before next fire season)</h3>`;
+          g.short.forEach((a,ai)=>{
+            html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
+            if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
+            if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
+            if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
+            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.images && a.images.length){
+              html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
+              a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
+              html += `</div></div>`;
+            }
+            html += `</div>`;
+          });
+          html += `</div>`;
+        }
+        if(g.near && g.near.length){
+          html += `<div><h3>Near Term (Next 3-5 years)</h3>`;
+          g.near.forEach((a,ai)=>{
+            html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
+            if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
+            if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
+            if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
+            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.images && a.images.length){
+              html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
+              a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
+              html += `</div></div>`;
+            }
+            html += `</div>`;
+          });
+          html += `</div>`;
+        }
+        if(g.long && g.long.length){
+          html += `<div><h3>Long Term (Next 10 years)</h3>`;
+          g.long.forEach((a,ai)=>{
+            html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
+            if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
+            if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
+            if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
+            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.images && a.images.length){
+              html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
+              a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
+              html += `</div></div>`;
+            }
+            html += `</div>`;
+          });
+          html += `</div>`;
+        }
+        html += `</div>`;
+      });
+    }
+
+    // resources
+    if(data.resources && data.resources.length){
+      html += `<h2>Resources</h2>`;
+      data.resources.forEach((r,i)=>{
+        html += `<div style="margin:6px 0;padding:8px;border:1px solid #ddd;border-radius:6px">`;
+        if(r.fundName) html += `<div><label>Funding Source:</label> ${esc(r.fundName)}</div>`;
+        if(r.fundActivities) html += `<div><label>Activities covered:</label> ${esc(r.fundActivities)}</div>`;
+        if(r.fundReqs) html += `<div><label>Application Requirements:</label> ${esc(r.fundReqs)}</div>`;
+        if(r.whenApply) html += `<div><label>When to apply:</label> ${esc(r.whenApply)}</div>`;
+        if(r.fundContact) html += `<div><label>Contact:</label> ${esc(r.fundContact)}</div>`;
+        if(r.fundLink) html += `<div><label>Info link:</label> ${esc(r.fundLink)}</div>`;
+        html += `</div>`;
+      });
+    }
+
+  //Helpful Organizations
+    if(data.helpfulOrgs && data.helpfulOrgs.length){
+        html += `<h2>Helpful Organizations and Information</h2>`;
+        data.helpfulOrgs.forEach((org,i)=>{
+          html += `<div style="margin:6px 0;padding:8px;border:1px solid #ddd;border-radius:6px">`;
+          if(org.OrgName) html += `<div><label>Organization Name:</label> ${esc(org.OrgName)}</div>`;
+          if(org.Orgdescript) html += `<div><label>Description:</label> ${esc(org.Orgdescript)}</div>`;
+          if(org.Info) html += `<div><label>Contact Info:</label> ${esc(org.Info)}</div>`;
+          html += `</div>`;
+        });
+    }
+     
+  //notes
+    if(data.notes) html += `<h2>Notes</h2><div>${esc(data.notes)}</div>`;
+
+    html += `<hr/><div style="font-size:12px;color:#666">Saved on ${new Date().toLocaleString()}</div>`;
+    html += `</body></html>`;
+    return html;
+  } catch (e) {
+    console.error('Error generating HTML:', e);
+    return '<html><body>Error generating report.</body></html>';
+  }
+}
+
+
+
+// ---- EXPORT as CSV (key,value) ----
+// flatten object with hierarchical keys, skip empty values
+function objectToKeyValuePairs(obj, prefix=''){
+  const rows = [];
+  function visit(keyPrefix, value){
+    if(value === null || value === undefined) return;
+    if(typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'){
+      const s = (typeof value === 'boolean') ? (value ? 'true' : 'false') : String(value);
+      if(s.trim() !== '') rows.push([keyPrefix, s]);
+      return;
+    }
+    if(Array.isArray(value)){
+      if(value.length === 0) return;
+      value.forEach((v,i) => visit(`${keyPrefix}[${i+1}]`, v));
+      return;
+    }
+    if(typeof value === 'object'){
+      // object: iterate keys
+      Object.keys(value).forEach(k=>{
+        visit(keyPrefix ? (keyPrefix + ' » ' + k) : k, value[k]);
+      });
+      return;
+    }
+  }
+  visit(prefix || '', obj);
+  return rows;
+}
+
+// CSV safe quoting
+function csvEscapeField(s){
+  if(s === null || s === undefined) return '';
+  s = String(s);
+  if(s.includes('"') || s.includes(',') || s.includes('\n')) {
+    return '"' + s.replace(/"/g,'""') + '"';
+  }
+  return s;
+}
+
+// ---- Save helpers ----
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+
+  // Detect iOS/Safari
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isIOS && isSafari) {
+    // On iOS Safari: open in new tab so user can Share > Save to Files
+    const newWindow = window.open(url, '_blank');
+    if (newWindow) {
+      // Optional: Add a message in the new tab to guide the user
+      newWindow.document.write(`
+        <html><body style="font-family:system-ui;padding:20px;text-align:center;">
+          <h2>Your assessment is ready!</h2>
+          <p>Tap the Share button (□↑) below and choose "Save to Files" to download it.</p>
+          <p>File: ${filename}</p>
+        </body></html>
+      `);
+      newWindow.document.close();
+    } else {
+      alert('Please allow pop-ups for this site, then try again.');
+    }
+  } else {
+    // Normal browsers: auto-download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  // Clean up the object URL after a delay
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+window.addEventListener("DOMContentLoaded", ()=> {
+ //Auto-ADD default sections
+  addWildfireEntry();
+  addActionGroup()
+  addStand();
+
+   // ---- wire up initial UI ----
+document.getElementById('addWildfireBtn').addEventListener('click', ()=> addWildfireEntry());
+document.getElementById('forestMgmtPlanFile').addEventListener('change', ev => {handleFilesPreview(ev.target.files, document.getElementById('forestMgmtPlanPreview'), ev.target);});
+document.getElementById('defensiblePlanFile').addEventListener('change', ev => {handleFilesPreview(ev.target.files, document.getElementById('defensiblePlanPreview'), ev.target);});
+// populate some default concerns
+commonConcerns.forEach(addConcern);
+document.getElementById('addStandBtn').addEventListener('click', ()=> addStand());
+document.getElementById('addActionGroupBtn').addEventListener('click', ()=> addActionGroup());
+document.getElementById('addResourceBtn').addEventListener('click', ()=> addResource());
+document.getElementById('addHelpfulOrgsBtn').addEventListener('click', ()=> addHelpfulOrgs());
+document.getElementById('resetBtn').addEventListener('click', ()=> {
+  if(confirm('Reset the form? This will clear all fields.')) location.reload();
+});
+
+  //Wire Plan File Previews
+  document.getElementById('forestMgmtPlanFile')?.addEventListener('change', ev => 
+    handleFilesPreview(ev.target.files, document.getElementById('forestMgmtPlanPreview'), ev.target));
+  document.getElementById('defensiblePlanFile')?.addEventListener('change', ev => 
+    handleFilesPreview(ev.target.files, document.getElementById('defensiblePlanPreview'), ev.target));  
+  
+   //Wire Map File Previews
+  document.querySelectorAll('input.map-file').forEach(input => {
+    const preview = document.getElementById(input.id.replace("File", "Preview"));
+    input.addEventListener('change', ev => handleFilesPreview(ev.target.files, preview, ev.target));
+  });
+
+  // Wire wildfire map file previews
+  document.querySelectorAll('input[name="wfMapFile"]').forEach(input => {
+    const previewDiv = input.closest('.wf-entry').querySelector('.map-preview');
+    input.addEventListener('change', ev => handleFilesPreview(ev.target.files, previewDiv, ev.target))
+  });
+
+
+   //Toggle upload visibility based on Yes for Forest Management Plan and Defensible Space
+document.getElementById('objForestMgmtYes').addEventListener('change', function(){
+  document.getElementById('forestMgmtUploadContainer').style.display = this.checked ? 'block' : 'none';
+});
+document.getElementById('objDefensibleYes').addEventListener('change', function(){
+  document.getElementById('defensibleUploadContainer').style.display = this.checked ? 'block' : 'none';
+});
+
+document.getElementById('exportHtmlBtn')?.addEventListener('click', ()=>{
+  try {
+    const data = gatherFormData();
+    const html = generateHTMLFromData(data);
+    const blob = new Blob([html], {type:'text/html'});
+    const fn = `wildfire_assessment_${(data.landowner||'assessment').replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${(new Date()).toISOString().slice(0,10)}.html`;
+    downloadBlob(blob, fn);
+  } catch (e) {
+    alert('Error exporting HTML: ' + e.message);
+  }
+});
+
+document.getElementById('exportCsvBtn')?.addEventListener('click', ()=>{
+  try {
+    const includeImages = document.getElementById('csvIncludeImages').checked;
+    const data = gatherFormData();
+    const dataForCsv = JSON.parse(JSON.stringify(data));
+    if(!includeImages){
+      (function removeImages(o){
+        if(Array.isArray(o)){
+          o.forEach(removeImages);
+          return;
+        }
+        if(!o || typeof o !== 'object') return;
+        delete o.images;
+        Object.keys(o).forEach(k => removeImages(o[k]));
+      })(dataForCsv);
+    }
+
+    const kv = objectToKeyValuePairs(dataForCsv);
+    if(kv.length === 0){
+      alert('No data to save (form appears empty).');
+      return;
+    }
+
+    let csv = 'key,value\r\n';
+    kv.forEach(([k,v]) => {
+      csv += csvEscapeField(k) + ',' + csvEscapeField(v) + '\r\n';
+    });
+
+    const blob = new Blob([csv], {type:'text/csv'});
+    const fn = `wildfire_assessment_${(data.landowner||'assessment')
+      .replace(/[^a-z0-9]/gi,'_')
+      .toLowerCase()}_${(new Date()).toISOString().slice(0,10)}.csv`;
+
+    downloadBlob(blob, fn);
+  } catch (e) {
+    alert('Error exporting CSV: ' + e.message);
+  }
+});
+});
+
+  </script>
+</body>
+</html>
