@@ -1205,18 +1205,27 @@ function downloadBlob(blob, filename) {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   if (isIOS && isSafari) {
-    // On iOS Safari: read blob as text and open as data URI
     const reader = new FileReader();
     reader.onload = function(e) {
-      const content = e.target.result;
-      const mimeType = blob.type || 'application/octet-stream';
-      const dataURI = `data:${mimeType};charset=utf-8,${encodeURIComponent(content)}`;
-      const newWindow = window.open(dataURI, '_blank');
-      if (!newWindow) {
-        alert('Please allow pop-ups for this site, then try again.');
+      const dataURI = e.target.result;  // This is data:mime;base64,content
+      const newWindow = window.open('', '_blank');
+      if (newWindow) {
+        newWindow.document.write(`
+          <html>
+          <head><title>Downloading ${filename}</title></head>
+          <body style="font-family:system-ui;padding:20px;text-align:center;">
+            <h2>Your assessment is ready!</h2>
+            <p><a href="${dataURI}" download="${filename}">Tap here to download ${filename}</a></p>
+            <p>If it doesn't download, tap the Share button (□↑) and choose "Save to Files".</p>
+          </body>
+          </html>
+        `);
+        newWindow.document.close();
+      } else {
+        alert('Please allow pop-ups for this site to enable exports, then try again.');
       }
     };
-    reader.readAsText(blob);
+    reader.readAsDataURL(blob);
   } else {
     // Normal browsers: auto-download
     const url = URL.createObjectURL(blob);
