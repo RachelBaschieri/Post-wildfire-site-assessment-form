@@ -970,7 +970,7 @@ function generateHTMLFromData(data){
 
         //add images if present
         if(c.images && c.images.length){
-          html += `<div><label>Photo(s) (jpeg only):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+          html += `<div><label>Photo(s) :</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
           c.images.forEach(durl=>{
                 html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
           });
@@ -1341,3 +1341,4 @@ document.getElementById('exportCsvBtn')?.addEventListener('click', ()=>{
   </script>
 </body>
 </html>
+
