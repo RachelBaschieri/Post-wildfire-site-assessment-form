@@ -90,7 +90,7 @@
     </div>
     <div id="wildfireHistoryContainer"></div>
     <div class="controls">
-      <button type="button" id="addWildfireBtn" class="mini">+ Add Wildfire History Entry</button>
+      <button type="button" id="addWildfireBtn" class="mini">+ Add wildfire history entry</button>
     </div>
 
     <h2>Immediate Concerns</h2>
@@ -104,7 +104,7 @@
         <textarea id="primaryValues"></textarea>
 
         <!-- Forest Management Plan -->
-        <h3>Forest Management Plan</h3>
+        <h3>Forest management plan</h3>
         <div class="inline">
           <input id="objForestMgmtYes" type="checkbox" />
           <span class="small">Yes</span>
@@ -124,7 +124,7 @@
     </div>
 
         <!-- Defensible Space -->
-        <h3>Defensible Space / Home Ignition Zone Assessment</h3>
+        <h3>Defensible space / home ignition zone assessment</h3>
         <div class="inline">
           <input id="objDefensibleYes" type="checkbox" />
           <span class="small">Yes</span>
@@ -262,25 +262,25 @@
     <h2>Property Characteristics by Forest Stand</h2>
     <div id="standsContainer"></div>
     <div class="controls">
-      <button type="button" id="addStandBtn" class="mini">+ Add Forest Stand</button>
+      <button type="button" id="addStandBtn" class="mini">+ Add forest stand</button>
     </div>
 
     <h2>Action Plans</h2>
     <div id="actionPlanGroups"></div>
     <div class="controls">
-      <button type="button" id="addActionGroupBtn" class="mini">+ Add Action Plan Group</button>
+      <button type="button" id="addActionGroupBtn" class="mini">+ Add action plan group</button>
     </div>
 
     <h2>Resources</h2>
     <div id="resourcesContainer"></div>
     <div class="controls">
-      <button type="button" id="addResourceBtn" class="mini">+ Add Funding Resource</button>
+      <button type="button" id="addResourceBtn" class="mini">+ Add funding resource</button>
     </div>
 
     <h2>Helpful Organizations and Information</h2>
     <div id="helpfulOrgsContainer"></div>
     <div class="controls">
-      <button type="button" id="addHelpfulOrgsBtn" class="mini">+ Add Organization</button>
+      <button type="button" id="addHelpfulOrgsBtn" class="mini">+ Add organization</button>
     </div>
 
     <h2>Notes</h2>
@@ -289,7 +289,7 @@
     <div class="controls" style="margin-top:12px">
       <button type="button" id="exportHtmlBtn" class="mini success">Save as HTML</button>
       <button type="button" id="exportCsvBtn" class="mini">Save as CSV (key,value)</button>
-      <label style="margin-left:6px" class="small"><input id="csvIncludeImages" type="checkbox" /> Include Images (base64) in CSV (may be large)</label>
+      <label style="margin-left:6px" class="small"><input id="csvIncludeImages" type="checkbox" /> Include images (base64) in CSV (may be large)</label>
       <button type="button" id="resetBtn" class="mini danger">Reset Form</button>
     </div>
 
@@ -304,7 +304,7 @@
   <template id="wildfireTemplate">
     <div class="card wf-entry" style="margin-bottom:12px; padding:12px; border:1px solid #ccc; border-radius:8px;">
       <div class="section-header" style="margin-bottom:8px;">
-        <strong>Wildfire Entry</strong>
+        <strong>Wildfire entry</strong>
         </div>
 
       <div class="grid" style="display:flex; flex-wrap:wrap; gap:12px;">
@@ -313,7 +313,7 @@
           <input name="wfYear" type="text" style="width:100%;" />
         </div>
         <div style="flex:1; min-width:150px;">
-          <label>Fire Name</label>
+          <label>Fire name</label>
           <input name="wfName" type="text" style="width:100%;"/>
         </div>
       </div>
@@ -321,7 +321,7 @@
         <div style="margin-top:8px;">
           <label style="display:flex; align-items:center; gap:6px;"></label>
           <label><input name="wfMapIncluded" type="checkbox" /> 
-            Burn Severity Map Included in Report
+            Burn severity map included in report
           </label>
           <input name="wfMapFile" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
           <div class="imagelist map-preview"></div>
@@ -342,7 +342,7 @@
       <textarea name="concernDesc"></textarea>
       <label>Recommendations</label>
       <textarea name="concernRec"></textarea>
-      <label> Upload Photo(s)</label>
+      <label> Upload photo(s)</label>
       <input type="file" name="concernImages" accept="image/*" multiple />
       <div class="imagelist"></div>
     </div>
@@ -352,44 +352,44 @@
     <div class="card stand-entry">
       <div class="section-header">
         <div>
-          <strong>Forest Stand</strong>
-          <div class="subtle">Stand Name: <input name="standName" type="text" placeholder="Stand name" style="display:inline-block;width:200px"/></div>
-          <div class="subtle">Stand Acres: <input name="standAcres" type="text" style="display:inline-block;width:100px"/></div>
+          <strong>Forest stand</strong>
+          <div class="subtle">Stand name: <input name="standName" type="text" placeholder="Stand name" style="display:inline-block;width:200px"/></div>
+          <div class="subtle">Stand acres: <input name="standAcres" type="text" style="display:inline-block;width:100px"/></div>
         </div>
         <div>
-          <button type="button" class="remove-stand remove-btn">Remove Stand</button>
+          <button type="button" class="remove-stand remove-btn">Remove stand</button>
         </div>
       </div>
 
       <div class="grid">
         <div>
-          <label>Elevation Range</label><input name="elevation" type="text"/>
-          <label>Erosion Potential</label><input name="erosion" type="text"/>
-          <label>Site Index</label><input name="siteIndex" type="text"/>
-          <label>Presence of Riparian Zones</label><input name="riparian" type="text"/>
+          <label>Elevation range</label><input name="elevation" type="text"/>
+          <label>Erosion potential</label><input name="erosion" type="text"/>
+          <label>Site index</label><input name="siteIndex" type="text"/>
+          <label>Presence of riparian zones</label><input name="riparian" type="text"/>
         </div>
         <div>
-          <label>Fuel Loading</label><input name="fuelLoading" type="text"/>
-          <label>Brush Potential</label><input name="brushPotential" type="text"/>
+          <label>Fuel loading</label><input name="fuelLoading" type="text"/>
+          <label>Brush potential</label><input name="brushPotential" type="text"/>
           <label>Aspect</label><input name="aspect" type="text"/>
-          <label>Soil Types</label><input name="soilTypes" type="text"/>
+          <label>Soil types</label><input name="soilTypes" type="text"/>
         </div>
         <div>
-          <label>Species Composition Prior to Wildfire</label><input name="speciesPrior" type="text"/>
-          <label>Average Mortality</label><input name="avgMortality" type="text"/>
-          <label>Average Flame Length</label><input name="avgFlame" type="text"/>
-          <label>Burn Severity</label><input name="burnSeverity" type="text"/>
+          <label>Species composition prior to wildfire</label><input name="speciesPrior" type="text"/>
+          <label>Average mortality</label><input name="avgMortality" type="text"/>
+          <label>Average flame length</label><input name="avgFlame" type="text"/>
+          <label>Burn severity</label><input name="burnSeverity" type="text"/>
         </div>
         <div>
-          <label>Reforestation Potential</label><input name="reforestPotential" type="text"/>
-          <label>Salvage Potential</label><input name="salvagePotential" type="text"/>
-          <label>Sensitive Species</label><input name="sensitiveSpecies" type="text"/>
+          <label>Reforestation potential</label><input name="reforestPotential" type="text"/>
+          <label>Salvage potential</label><input name="salvagePotential" type="text"/>
+          <label>Sensitive species</label><input name="sensitiveSpecies" type="text"/>
         </div>
       </div>
 
       <div style="margin-top:10px">
-        <label><input name="photoTaken" type="checkbox"/> Photo Taken</label>
-        <label>Upload Photos</label>
+        <label><input name="photoTaken" type="checkbox"/> Photo taken</label>
+        <label>Upload photo(s)</label>
         <input name="standImages" type="file" accept="image/*" multiple />
         <div class="imagelist"></div>
       </div>
@@ -402,48 +402,48 @@
         <strong class="groupTitle"></strong>
         <button type="button" class="removeGroup remove-btn">Remove Group</button>
       </div>
-      <h3>Short Term (Before next fire season)</h3>
+      <h3>Short term (before next fire season)</h3>
       <div class="shortActions"></div>
-      <button type="button" class="mini addActionRow" data-when="short">+ Add Short Term Action</button>
+      <button type="button" class="mini addActionRow" data-when="short">+ Add short term action</button>
 
-      <h3>Near Term (Next 3-5 years)</h3>
+      <h3>Near term (next 3-5 years)</h3>
       <div class="nearActions"></div>
-      <button type="button" class="mini addActionRow" data-when="near">+ Add Near Term Action</button>
+      <button type="button" class="mini addActionRow" data-when="near">+ Add near term action</button>
 
-      <h3>Long Term (Next 10 years)</h3>
+      <h3>Long term (next 10 years)</h3>
       <div class="longActions"></div>
-      <button type="button" class="mini addActionRow" data-when="long">+ Add Long Term Action</button>
+      <button type="button" class="mini addActionRow" data-when="long">+ Add long term action</button>
     </div>
   </template>
 
   <template id="actionRowTemplate">
     <div class="action-row" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
-      <label>Required Steps</label>
+      <label>Required steps</label>
       <textarea name="requiredSteps"></textarea>
-      <label>Who Can Do the Work</label>
+      <label>Who can do the work</label>
       <textarea name="whoDo"></textarea>
-      <label>Possible with Existing Resources</label>
+      <label>Possible with existing resources</label>
       <input name="possibleExisting" type="checkbox"/>
-      <label>People/Orgs/Funding Sources to Contact</label>
+      <label>People/orgs/funding sources to contact</label>
       <textarea name="fundingSources"></textarea>
-      <label>Upload Photo(s)</label>
+      <label>Upload photo(s)</label>
       <input name="actionImages" type="file" accept="image/*" multiple />
       <div class="imagelist"></div>
       <div style="text-align:right;margin-top:6px">
-        <button type="button" class="removeAction remove-btn mini">Remove Action</button>
+        <button type="button" class="removeAction remove-btn mini">Remove action</button>
       </div>
     </div>
   </template>
 
   <template id="resourceTemplate">
     <div class="resource-entry" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
-      <label>Funding Source Name</label>
+      <label>Funding source name</label>
       <input name="fundName" type="text"/>
-      <label>Activities Covered</label>
+      <label>Activities covered</label>
       <textarea name="fundActivities"></textarea>
-      <label>Application Requirements</label>
+      <label>Application requirements</label>
       <textarea name="fundReqs"></textarea>
-      <label>When to Apply</label>
+      <label>When to apply</label>
       <input name="whenApply" type="text"/>
       <label>Contact</label>
       <textarea name="fundContact"></textarea>
@@ -455,11 +455,11 @@
 
   <template id="HelpfulOrgsTemplate">
     <div class="helporgs-entry" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
-      <label>Organization Name</label>
+      <label>Organization name</label>
       <input name="OrgName" type="text"/>
       <label>Description</label>
       <textarea name="Orgdescript"></textarea>
-      <label>Contact Info</label>
+      <label>Contact info</label>
       <textarea name="Info"></textarea>
       <div style="text-align:right;margin-top:6px">
         <button type="button" class="removeOrgs remove-btn mini">Remove</button>
@@ -934,10 +934,10 @@ function generateHTMLFromData(data){
     if(hasBasic){
       html += `<h2>Basic Info</h2><div>`;
       if(data.landowner) html += `<div class="pair"><label>Landowner(s):</label> ${esc(data.landowner)}</div>`;
-      if(data.dateAssessment) html += `<div class="pair"><label>Date of Assessment:</label> ${esc(data.dateAssessment)}</div>`;
-      if(data.assessorOrg) html += `<div class="pair"><label>Site Assessor / Org:</label> ${esc(data.assessorOrg)}</div>`;
-      if(data.assessorContact) html += `<div class="pair"><label>Assessor Contact:</label> ${esc(data.assessorContact)}</div>`;
-      if(data.siteAddress) html += `<div class="pair"><label>Site Address:</label> ${esc(data.siteAddress)}</div>`;
+      if(data.dateAssessment) html += `<div class="pair"><label>Date of assessment:</label> ${esc(data.dateAssessment)}</div>`;
+      if(data.assessorOrg) html += `<div class="pair"><label>Site assessor / Org:</label> ${esc(data.assessorOrg)}</div>`;
+      if(data.assessorContact) html += `<div class="pair"><label>Assessor contact:</label> ${esc(data.assessorContact)}</div>`;
+      if(data.siteAddress) html += `<div class="pair"><label>Site address:</label> ${esc(data.siteAddress)}</div>`;
       if(data.propertyAcreage) html += `<div class="pair"><label>Property acreage:</label> ${esc(data.propertyAcreage)}</div>`;
       if(data.yearsOwned) html += `<div class="pair"><label>Years owned:</label> ${esc(data.yearsOwned)}</div>`;
       if(typeof data.planningToSell !== 'undefined') html += `<div class="pair"><label>Planning to sell:</label> ${data.planningToSell ? 'Yes' : 'No'}</div>`;
@@ -948,7 +948,7 @@ function generateHTMLFromData(data){
     // Wildfire history
     if(data.wildfireHistory && data.wildfireHistory.length){
       html += `<h2>History of Wildfire</h2><div>`;
-      if (data.prop_purchased_post_fire) html += `<div class="pair"><label>Property Purchased Post-Wildfire:</label> Yes</div>`;
+      if (data.prop_purchased_post_fire) html += `<div class="pair"><label>Property purchased post-wildfire:</label> Yes</div>`;
       data.wildfireHistory.forEach((w,i)=>{
         html += `<div class="pair"><label>Entry ${i+1}:</label> ${esc(w.year || '')} — ${esc(w.name || '')} ${w.mapIncluded ? '(Burn severity map included)' : ''}</div>`;
       });
@@ -980,21 +980,21 @@ function generateHTMLFromData(data){
       // Objectives
       if(data.objectives && (data.objectives.forestManagementPlanYes || data.objectives.forestManagementPlanInterested || data.objectives.defensibleSpaceYes || data.objectives.defensibleSpaceInterested || data.objectives.primaryValues)){
         html += `<h2>Landowner Objectives</h2><div>`;
-        if(data.objectives.forestManagementPlanYes) html += `<div class="pair"><label>>Forest Management Plan:</label> Yes</div>`;
-        if(data.objectives.forestManagementPlanInterested) html += `<div class="pair"><label>Forest Management Plan:</label> Interested</div>`;
-        if(data.objectives.forestMgmtContact) html += `<div class="pair"><label>Contact for Forest Management Plan:</label> ${esc(data.objectives.forestMgmtContact)}</div>`;
-        if(data.objectives.defensibleSpaceYes) html += `<div class="pair"><label>Defensible Space Assessment:</label> Yes</div>`;
-        if(data.objectives.defensibleSpaceInterested) html += `<div class="pair"><label>Defensible Space Assessment:</label> Interested</div>`;
-        if(data.objectives.defensibleContact) html += `<div class="pair"><label>Contact for Defensible Space:</label> ${esc(data.objectives.defensibleContact)}</div>`;
+        if(data.objectives.forestManagementPlanYes) html += `<div class="pair"><label>>Forest management plan:</label> Yes</div>`;
+        if(data.objectives.forestManagementPlanInterested) html += `<div class="pair"><label>Forest management plan:</label> Interested</div>`;
+        if(data.objectives.forestMgmtContact) html += `<div class="pair"><label>Contact for forest management plan:</label> ${esc(data.objectives.forestMgmtContact)}</div>`;
+        if(data.objectives.defensibleSpaceYes) html += `<div class="pair"><label>Defensible space assessment:</label> Yes</div>`;
+        if(data.objectives.defensibleSpaceInterested) html += `<div class="pair"><label>Defensible space assessment:</label> Interested</div>`;
+        if(data.objectives.defensibleContact) html += `<div class="pair"><label>Contact for defensible space:</label> ${esc(data.objectives.defensibleContact)}</div>`;
         if(data.objectives.primaryValues) html += `<div class="pair"><label>Primary values:</label> ${esc(data.objectives.primaryValues)}</div>`;
         html += `</div>`;
       }
 
       if(data.objectives.forestMgmtFiles && data.objectives.forestMgmtFiles.length){
-        html += `<div><label>Forest Management Plan File(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+        html += `<div><label>Forest management plan file(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
         data.objectives.forestMgmtFiles.forEach(f=>{
           if(f.startsWith('data:application/pdf'))
-              html += `<div><a href="${f}" download="Forest_Management_Plan.pdf"> Download PDF</a></div>`;
+              html += `<div><a href="${f}" download="Forest_management_plan.pdf"> Download PDF</a></div>`;
           else {
               html += `<img src="${f}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
           }
@@ -1003,10 +1003,10 @@ function generateHTMLFromData(data){
       }
   
       if(data.objectives.defensiblePlanFiles && data.objectives.defensiblePlanFiles.length){
-        html += `<div><label>Defensible Space Assessment File(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
+        html += `<div><label>Defensible space assessment file(s):</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">`;
         data.objectives.defensiblePlanFiles.forEach(f=>{
           if(f.startsWith('data:application/pdf'))
-              html += `<div><a href="${f}" download="Defensible_Space_Assessment.pdf"> Download PDF</a></div>`;
+              html += `<div><a href="${f}" download="Defensible_space_assessment.pdf"> Download PDF</a></div>`;
           else {
               html += `<img src="${f}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`;
           }
@@ -1060,13 +1060,13 @@ function generateHTMLFromData(data){
         html += `<div style="padding:8px;border:1px solid #ddd;border-radius:6px;margin:8px 0">`;
         html += `<div><strong>Group ${gi+1}</strong></div>`;
         if(g.short && g.short.length){
-          html += `<div><h3>Short Term (Before next fire season)</h3>`;
+          html += `<div><h3>Short term (before next fire season)</h3>`;
           g.short.forEach((a,ai)=>{
             html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
             if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
             if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
             if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
-            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.fundingSources) html += `<div><label>People/orgs/funding:</label> ${esc(a.fundingSources)}</div>`;
             if(a.images && a.images.length){
               html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
               a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
@@ -1077,13 +1077,13 @@ function generateHTMLFromData(data){
           html += `</div>`;
         }
         if(g.near && g.near.length){
-          html += `<div><h3>Near Term (Next 3-5 years)</h3>`;
+          html += `<div><h3>Near term (next 3-5 years)</h3>`;
           g.near.forEach((a,ai)=>{
             html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
             if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
             if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
             if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
-            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.fundingSources) html += `<div><label>People/orgs/funding:</label> ${esc(a.fundingSources)}</div>`;
             if(a.images && a.images.length){
               html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
               a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
@@ -1094,13 +1094,13 @@ function generateHTMLFromData(data){
           html += `</div>`;
         }
         if(g.long && g.long.length){
-          html += `<div><h3>Long Term (Next 10 years)</h3>`;
+          html += `<div><h3>Long term (next 10 years)</h3>`;
           g.long.forEach((a,ai)=>{
             html += `<div style="margin:6px 0;padding:8px;border:1px dashed #ddd">`;
             if(a.requiredSteps) html += `<div><label>Required steps:</label> ${esc(a.requiredSteps)}</div>`;
             if(a.whoDo) html += `<div><label>Who can do the work:</label> ${esc(a.whoDo)}</div>`;
             if(a.possibleExisting) html += `<div><label>Possible with existing resources:</label> Yes</div>`;
-            if(a.fundingSources) html += `<div><label>People/Orgs/Funding:</label> ${esc(a.fundingSources)}</div>`;
+            if(a.fundingSources) html += `<div><label>People/orgs/funding:</label> ${esc(a.fundingSources)}</div>`;
             if(a.images && a.images.length){
               html += `<div style="margin-top:6px">Photos: <div style="display:flex;gap:8px;margin-top:6px">`;
               a.images.forEach(durl=> html += `<img src="${durl}" style="max-width:200px;max-height:140px;border:1px solid #ccc;border-radius:6px"/>`);
@@ -1119,9 +1119,9 @@ function generateHTMLFromData(data){
       html += `<h2>Resources</h2>`;
       data.resources.forEach((r,i)=>{
         html += `<div style="margin:6px 0;padding:8px;border:1px solid #ddd;border-radius:6px">`;
-        if(r.fundName) html += `<div><label>Funding Source:</label> ${esc(r.fundName)}</div>`;
+        if(r.fundName) html += `<div><label>Funding source:</label> ${esc(r.fundName)}</div>`;
         if(r.fundActivities) html += `<div><label>Activities covered:</label> ${esc(r.fundActivities)}</div>`;
-        if(r.fundReqs) html += `<div><label>Application Requirements:</label> ${esc(r.fundReqs)}</div>`;
+        if(r.fundReqs) html += `<div><label>Application requirements:</label> ${esc(r.fundReqs)}</div>`;
         if(r.whenApply) html += `<div><label>When to apply:</label> ${esc(r.whenApply)}</div>`;
         if(r.fundContact) html += `<div><label>Contact:</label> ${esc(r.fundContact)}</div>`;
         if(r.fundLink) html += `<div><label>Info link:</label> ${esc(r.fundLink)}</div>`;
@@ -1134,7 +1134,7 @@ function generateHTMLFromData(data){
         html += `<h2>Helpful Organizations and Information</h2>`;
         data.helpfulOrgs.forEach((org,i)=>{
           html += `<div style="margin:6px 0;padding:8px;border:1px solid #ddd;border-radius:6px">`;
-          if(org.OrgName) html += `<div><label>Organization Name:</label> ${esc(org.OrgName)}</div>`;
+          if(org.OrgName) html += `<div><label>Organization name:</label> ${esc(org.OrgName)}</div>`;
           if(org.Orgdescript) html += `<div><label>Description:</label> ${esc(org.Orgdescript)}</div>`;
           if(org.Info) html += `<div><label>Contact Info:</label> ${esc(org.Info)}</div>`;
           html += `</div>`;
@@ -1174,7 +1174,7 @@ function objectToKeyValuePairs(obj, prefix=''){
     if(typeof value === 'object'){
       // object: iterate keys
       Object.keys(value).forEach(k=>{
-        visit(keyPrefix ? (keyPrefix + ' » ' + k) : k, value[k]);
+        visit(keyPrefix ? (keyPrefix + ' : ' + k) : k, value[k]);
       });
       return;
     }
