@@ -8,8 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:14px;background:#f7f9fb;color:#111}
-    h1{font-size:20px;margin-top:6px}
-    h2{font-size:16px;margin:10px 0}
+    h1{font-size:24px;margin-top:6px}
+    h2{font-size:20px;margin:10px 0;text-decoration:underline}
+    h3{font-size:17px;margin:16px 0 10px 0;font-weight:600;color:#333}
     .card{background:white;border-radius:8px;padding:12px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
     label{display:block;margin:6px 0;font-weight:600}
     input[type=text], input[type=date], input[type=number], textarea, select{width:100%;box-sizing:border-box;padding:8px;border:1px solid #d4d7dd;border-radius:6px}
@@ -46,19 +47,19 @@
         <input id="landowner" type="text" placeholder="Name(s)"/>
       </div>
       <div>
-        <label>Date of Assessment</label>
+        <label>Date of assessment</label>
         <input id="dateAssessment" type="date" />
       </div>
       <div>
-        <label>Site Assessor and Organization</label>
+        <label>Site assessor and organization</label>
         <input id="assessorOrg" type="text" />
       </div>
       <div>
-        <label>Assessor Contact</label>
+        <label>Assessor contact</label>
         <input id="assessorContact" type="text" />
       </div>
       <div>
-        <label>Site Address</label>
+        <label>Site address</label>
         <textarea id="siteAddress"></textarea>
       </div>
       <div>
@@ -71,20 +72,20 @@
       </div>
       <div>
         <label>Planning to sell?</label>
-        <div class="inline"><input id="planningToSell" type="checkbox"/> <span class="small">Planning to Sell</span></div>
+        <div class="inline"><input id="planningToSell" type="checkbox"/> <span class="small">Planning to sell</span></div>
       </div>
     </div>
 
     <h2>Landowner Residence</h2>
     <div>
-      <label class="small"><input type="radio" name="residence" value="On Property Full Time" checked/> On Property Full Time</label>
-      <label class="small"><input type="radio" name="residence" value="On Property Part Time"/> On Property Part Time</label>
+      <label class="small"><input type="radio" name="residence" value="On Property Full Time" checked/> On property full-time</label>
+      <label class="small"><input type="radio" name="residence" value="On Property Part Time"/> On property part-time</label>
       <label class="small"><input type="radio" name="residence" value="Does not reside on property"/> Does not reside on property</label>
     </div>
 
     <h2>History of Wildfire on Property</h2>
     <div>
-        <label>Property was purchased Post-wildfire</label>
+        <label>Property purchased post-wildfire</label>
         <div class="inline"><input id="prop_purchased_post_fire" type="checkbox"/> <span class="small"></span></div>
     </div>
     <div id="wildfireHistoryContainer"></div>
@@ -112,12 +113,12 @@
           <input id="objForestMgmtInterested" type="checkbox" />
           <span class="small">Interested</span>
     </div>
-    <label>Contact for Forest Management Plan</label>
+    <label>Contact for interest in a forest management plan</label>
     <textarea id="forestMgmtPlancontact"></textarea>
     
     <!--Upload area (initially hidden)-->
     <div id="forestMgmtUploadContainer" style="display:none; margin-top:8px;">
-    <label>Upload Forest Management Plan (PDF or Image)</label>
+    <label>Upload forest management plan (PDF or image)</label>
     <input id="forestMgmtPlanFile" type="file" accept="image/*,.pdf" multiple />
     <div class="imagelist" id="forestMgmtPlanPreview"></div>
     </div>
@@ -133,12 +134,12 @@
           <span class="small">Interested</span>
         </div>
 
-        <label>Contact for Defensible Space Assessment</label>
+        <label>Contact for interest in a defensible space assessment</label>
         <textarea id="defensibleContact"></textarea>
 
         <!--Upload area (initially hidden)-->
         <div id="defensibleUploadContainer" style="display:none; margin-top:8px;">
-        <label>Upload Defensible Space Assessment (PDF or Image)</label>
+        <label>Upload defensible space assessment (PDF or image)</label>
         <input id="defensiblePlanFile" type="file" accept="image/*,.pdf" multiple />
         <div class="imagelist" id="defensiblePlanPreview"></div>
       </div>
@@ -147,12 +148,8 @@
     <h2>Forest Property Characteristics</h2>
     <div style="display: flex; gap: 20px; margin-bottom: 16px;">
     <div style="flex: 1;">
-        <label>Adjacent Property Ownerships (description)</label><br/>
+        <label>Adjacent property ownerships (description)</label><br/>
         <textarea id="adjacentOwnerships" style="width:100%; min-height:60px;"></textarea>
-    </div>
-    <div style="flex: 1;">
-        <label>Contact Information</label><br/>
-        <textarea id="adjacentownerscontact" style="width:100%; min-height:60px;"></textarea>
     </div>
     </div>
 
@@ -164,7 +161,7 @@
             <div>
                 <label style="font-size:14px;">
                   <input id="watershedHUCMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="watershedHUCMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="watershedHUCMapPreview" class="imagelist map-preview"></div>
@@ -179,7 +176,7 @@
             <div>
                 <label style="font-size:14px;">
                   <input id="watercoursesMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="watercoursesMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="watercoursesMapPreview" class="imagelist map-preview"></div>
@@ -194,7 +191,7 @@
             <div>
                 <label style="font-size:14px;">
                   <input id="nonWoodlandMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="nonWoodlandMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="nonWoodlandMapPreview" class="imagelist map-preview"></div>
@@ -203,13 +200,13 @@
 
         <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
             <div style="flex: 1;">
-                <label>Extent of Road Systems on property (description)</label>
+                <label>Extent of road systems on property (description)</label>
                 <input id="roadExtent" type="text" style="width:100%;" />
             </div>
             <div>
                 <label style="font-size:14px;">
                   <input id="roadExtentMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="roadExtentMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="roadExtentMapPreview" class="imagelist map-preview"></div>
@@ -218,13 +215,13 @@
 
         <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
             <div style="flex: 1;">
-                <label>Right of Ways on Property (description)</label>
+                <label>Right of ways on property (description)</label>
                 <input id="rightOfWays" type="text" style="width:100%;" />
             </div>
             <div>
                 <label style="font-size:14px;">
                   <input id="rightOfWaysMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="rightOfWaysMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="rightOfWaysMapPreview" class="imagelist map-preview"></div>
@@ -233,13 +230,13 @@
 
         <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
             <div style="flex: 1;">
-                <label>Treatments or Timber Harvests Prior to Wildfire (description)</label>
+                <label>Treatments or timber harvests prior to wildfire (description)</label>
                 <input id="treatmentsPrior" type="text" style="width:100%;" />
             </div>
             <div>
                 <label style="font-size:14px;">
                   <input id="treatmentsPriorMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="treatmentsPriorMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="treatmentsPriorMapPreview" class="imagelist map-preview"></div>
@@ -248,13 +245,13 @@
 
         <div style="display: flex; align-items:center; gap: 12px; margin-bottom: 12px;">
             <div style="flex: 1;">
-                <label>Treatments or Timber Harvests Since Wildfire (description)</label>
+                <label>Treatments or timber harvests since wildfire (description)</label>
                 <input id="treatmentsSince" type="text" style="width:100%;" />
             </div>
             <div>
                 <label style="font-size:14px;">
                   <input id="treatmentsSinceMapcheckbox" type="checkbox" />
-                  Features Mapped?
+                  Features mapped?
                 </label>
                 <input id="treatmentsSinceMapFile" class="map-file" type="file" accept="image/*,.pdf" style="display:block; margin-top:6px;" />
                 <div id="treatmentsSinceMapPreview" class="imagelist map-preview"></div>
@@ -292,7 +289,7 @@
     <div class="controls" style="margin-top:12px">
       <button type="button" id="exportHtmlBtn" class="mini success">Save as HTML</button>
       <button type="button" id="exportCsvBtn" class="mini">Save as CSV (key,value)</button>
-      <label style="margin-left:6px" class="small"><input id="csvIncludeImages" type="checkbox" /> Include images (base64) in CSV (may be large)</label>
+      <label style="margin-left:6px" class="small"><input id="csvIncludeImages" type="checkbox" /> Include Images (base64) in CSV (may be large)</label>
       <button type="button" id="resetBtn" class="mini danger">Reset Form</button>
     </div>
 
@@ -316,7 +313,7 @@
           <input name="wfYear" type="text" style="width:100%;" />
         </div>
         <div style="flex:1; min-width:150px;">
-          <label>Fire name</label>
+          <label>Fire Name</label>
           <input name="wfName" type="text" style="width:100%;"/>
         </div>
       </div>
@@ -356,8 +353,8 @@
       <div class="section-header">
         <div>
           <strong>Forest Stand</strong>
-          <div class="subtle">Stand name: <input name="standName" type="text" placeholder="Stand name" style="display:inline-block;width:200px"/></div>
-          <div class="subtle">Stand acres: <input name="standAcres" type="text" style="display:inline-block;width:100px"/></div>
+          <div class="subtle">Stand Name: <input name="standName" type="text" placeholder="Stand name" style="display:inline-block;width:200px"/></div>
+          <div class="subtle">Stand Acres: <input name="standAcres" type="text" style="display:inline-block;width:100px"/></div>
         </div>
         <div>
           <button type="button" class="remove-stand remove-btn">Remove Stand</button>
@@ -366,27 +363,27 @@
 
       <div class="grid">
         <div>
-          <label>Elevation range</label><input name="elevation" type="text"/>
-          <label>Erosion potential</label><input name="erosion" type="text"/>
+          <label>Elevation Range</label><input name="elevation" type="text"/>
+          <label>Erosion Potential</label><input name="erosion" type="text"/>
           <label>Site Index</label><input name="siteIndex" type="text"/>
-          <label>Presence of riparian zones</label><input name="riparian" type="text"/>
+          <label>Presence of Riparian Zones</label><input name="riparian" type="text"/>
         </div>
         <div>
-          <label>Fuel loading</label><input name="fuelLoading" type="text"/>
-          <label>Brush potential</label><input name="brushPotential" type="text"/>
+          <label>Fuel Loading</label><input name="fuelLoading" type="text"/>
+          <label>Brush Potential</label><input name="brushPotential" type="text"/>
           <label>Aspect</label><input name="aspect" type="text"/>
-          <label>Soil types</label><input name="soilTypes" type="text"/>
+          <label>Soil Types</label><input name="soilTypes" type="text"/>
         </div>
         <div>
-          <label>Species composition prior to wildfire</label><input name="speciesPrior" type="text"/>
-          <label>Average mortality</label><input name="avgMortality" type="text"/>
-          <label>Average flame length</label><input name="avgFlame" type="text"/>
-          <label>Burn severity</label><input name="burnSeverity" type="text"/>
+          <label>Species Composition Prior to Wildfire</label><input name="speciesPrior" type="text"/>
+          <label>Average Mortality</label><input name="avgMortality" type="text"/>
+          <label>Average Flame Length</label><input name="avgFlame" type="text"/>
+          <label>Burn Severity</label><input name="burnSeverity" type="text"/>
         </div>
         <div>
-          <label>Reforestation potential</label><input name="reforestPotential" type="text"/>
-          <label>Salvage potential</label><input name="salvagePotential" type="text"/>
-          <label>Sensitive species</label><input name="sensitiveSpecies" type="text"/>
+          <label>Reforestation Potential</label><input name="reforestPotential" type="text"/>
+          <label>Salvage Potential</label><input name="salvagePotential" type="text"/>
+          <label>Sensitive Species</label><input name="sensitiveSpecies" type="text"/>
         </div>
       </div>
 
@@ -421,13 +418,13 @@
 
   <template id="actionRowTemplate">
     <div class="action-row" style="border:1px solid #ddd; padding:8px; margin:6px 0; border-radius:6px">
-      <label>Required steps</label>
+      <label>Required Steps</label>
       <textarea name="requiredSteps"></textarea>
-      <label>Who can do the work</label>
+      <label>Who Can Do the Work</label>
       <textarea name="whoDo"></textarea>
-      <label>Possible with existing resources</label>
+      <label>Possible with Existing Resources</label>
       <input name="possibleExisting" type="checkbox"/>
-      <label>People/Orgs/Funding sources to contact</label>
+      <label>People/Orgs/Funding Sources to Contact</label>
       <textarea name="fundingSources"></textarea>
       <label>Upload Photo(s)</label>
       <input name="actionImages" type="file" accept="image/*" multiple />
@@ -512,14 +509,14 @@ function addWildfireEntry(data){
 // Add prefilled concerns for common items (names from PDF)
 const commonConcerns = [
   "Home or outbuilding damage",
-  "Hazard Trees Present",
-  "High Erosion or Landslide potential",
-  "Watercourse Debris",
-  "Road Infrastructure Failures",
-  "Downed Powerlines",
+  "Hazard trees present",
+  "High erosion or landslide potential",
+  "Watercourse debris",
+  "Road infrastructure failures",
+  "Downed powerlines",
   "Wellhouse or spring damage/drinking water concerns",
   "Livestock management and/or fencing",
-  "Cross-Boundary Communication",
+  "Cross-boundary communication",
   "Unclear property lines"
 ];
 function addConcern(name){
@@ -795,7 +792,6 @@ function gatherFormData(){
   // forest property characteristics
   data.forestProperties = {
     adjacentOwnerships: document.getElementById('adjacentOwnerships')?.value.trim() || '',
-    adjacentownerscontact: document.getElementById('adjacentownerscontact')?.value.trim() || '',
     watershedHUC: document.getElementById('watershedHUC')?.value.trim() || '',
     watershedHUCMap: document.getElementById('watershedHUCMapcheckbox')?.checked || false,
     watershedHUCMapFiles: getMapFiles('#watershedHUCMapFile'),
